@@ -1,4 +1,4 @@
-package com.dianping.ehcache;
+package locke.learn.ehcache;
 
 
 import net.sf.ehcache.Cache;

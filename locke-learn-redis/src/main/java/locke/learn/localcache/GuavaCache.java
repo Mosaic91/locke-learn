@@ -1,4 +1,4 @@
-package com.dianping.localcache;
+package locke.learn.localcache;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

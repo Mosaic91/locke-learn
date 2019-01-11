@@ -1,30 +1,24 @@
-package com.dianping.locke.test.redis;
+package locke.learn.redis;
 
-import org.junit.Before;
-import org.junit.Test;
 import redis.clients.jedis.Jedis;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class TestRedis {
+public class Redis {
+    Jedis jedis = new Jedis("127.0.0.1", 6379);
 
-    private Jedis jedis;
+    public static void main(String[] args) throws InterruptedException {
+        Redis redis = new Redis();
 
-    @Before
-    public void setup() {
-        //连接redis服务器，192.168.0.100:6379
-        jedis = new Jedis("127.0.0.1", 6379);
-        //权限认证
-        //jedis.auth("admin");
+        redis.testString();
+
     }
 
     /**
      * redis存储字符串
      */
-    @Test
     public void testString() {
         //-----添加数据----------
         jedis.set("name","xinxin");//向key-->name中放入了value-->xinxin
@@ -40,12 +34,12 @@ public class TestRedis {
         jedis.incr("age"); //进行加1操作
         System.out.println(jedis.get("name") + "-" + jedis.get("age") + "-" + jedis.get("qq"));
 
+//        jedis.setnx()
     }
 
     /**
      * redis操作Map
      */
-    @Test
     public void testMap() {
         //-----添加数据----------
         Map<String, String> map = new HashMap<String, String>();
@@ -76,7 +70,6 @@ public class TestRedis {
     /**
      * jedis操作List
      */
-    @Test
     public void testList(){
         //开始前，先移除所有的内容
         jedis.del("java framework");
@@ -99,7 +92,6 @@ public class TestRedis {
     /**
      * jedis操作Set
      */
-    @Test
     public void testSet(){
         //添加
         jedis.sadd("user1","liuling");
@@ -115,7 +107,6 @@ public class TestRedis {
         System.out.println(jedis.scard("user1"));//返回集合的元素个数
     }
 
-    @Test
     public void test() throws InterruptedException {
         //jedis 排序
         //注意，此处的rpush和lpush是List的操作。是一个双向链表（但从表现来看的）
@@ -132,4 +123,5 @@ public class TestRedis {
         System.out.println(jedis.sort("a")); //[1, 3, 6, 9]  //输入排序后结果
         System.out.println(jedis.lrange("a",0,-1));
     }
+
 }
